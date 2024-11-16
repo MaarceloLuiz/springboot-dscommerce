@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @Data
@@ -19,4 +21,8 @@ public class User {
     private LocalDate birthDate;
     private String password;
     private String[] roles;
+
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders = new ArrayList<>();
+
 }
