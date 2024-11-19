@@ -1,8 +1,10 @@
 package com.marceloluiz.DSCommerce.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.Instant;
@@ -11,6 +13,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@NoArgsConstructor // Required by Hibernate
+@AllArgsConstructor // Required by @Builder
 @Builder
 @Data
 @Entity

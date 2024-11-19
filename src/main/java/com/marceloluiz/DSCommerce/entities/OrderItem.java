@@ -5,7 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor // Required by Hibernate
 @Data
 @Entity
 @Table(name = "tb_order_item")
