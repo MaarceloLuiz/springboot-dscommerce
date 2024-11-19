@@ -3,13 +3,11 @@ package com.marceloluiz.DSCommerce.services;
 import com.marceloluiz.DSCommerce.dto.ProductDTO;
 import com.marceloluiz.DSCommerce.entities.Product;
 import com.marceloluiz.DSCommerce.repositories.ProductRepository;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,5 +24,16 @@ public class ProductService {
                 .price(product.getPrice())
                 .imgUrl(product.getImgUrl())
                 .build();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ProductDTO> findAll(Pageable pageable){
+        return repository.findAll(pageable).map(p -> ProductDTO.builder()
+                .id(p.getId())
+                .name(p.getName())
+                .description(p.getDescription())
+                .price(p.getPrice())
+                .imgUrl(p.getImgUrl())
+                .build());
     }
 }
