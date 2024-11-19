@@ -1,9 +1,12 @@
 package com.marceloluiz.DSCommerce.services;
 
+import com.marceloluiz.DSCommerce.dto.ProductDTO;
 import com.marceloluiz.DSCommerce.entities.Product;
 import com.marceloluiz.DSCommerce.repositories.ProductRepository;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,12 +16,15 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository repository;
 
-    public List<Product> findAll(){
-        return repository.findAll();
-    }
-
-    public String teste(){
-        Optional<Product> result = repository.findById(1L);
-        return result.get().getName();
+    @Transactional(readOnly = true)
+    public ProductDTO findById(Long id){
+        Product product = repository.findById(id).get();
+        return ProductDTO.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .description(product.getDescription())
+                .price(product.getPrice())
+                .imgUrl(product.getImgUrl())
+                .build();
     }
 }
