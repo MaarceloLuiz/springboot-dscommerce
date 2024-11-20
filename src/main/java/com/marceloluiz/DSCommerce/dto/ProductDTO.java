@@ -1,16 +1,24 @@
 package com.marceloluiz.DSCommerce.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.marceloluiz.DSCommerce.entities.Product;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 
-@Builder
+@NoArgsConstructor
 @Getter
 public class ProductDTO {
-    private final Long id;
-    private final String name;
-    private final String description;
-    private final Double price;
-    private final String imgUrl;
+    private Long id;
+    private String name;
+    private String description;
+    private Double price;
+    private String imgUrl;
+
+    public ProductDTO(@NotNull Product product){
+        id = product.getId();
+        name = product.getName();
+        description = product.getDescription();
+        price = product.getPrice();
+        imgUrl = product.getImgUrl();
+    }
 }

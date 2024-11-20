@@ -17,23 +17,25 @@ public class ProductService {
     @Transactional(readOnly = true)
     public ProductDTO findById(Long id){
         Product product = repository.findById(id).get();
-        return ProductDTO.builder()
-                .id(product.getId())
-                .name(product.getName())
-                .description(product.getDescription())
-                .price(product.getPrice())
-                .imgUrl(product.getImgUrl())
-                .build();
+        return new ProductDTO(product);
     }
 
     @Transactional(readOnly = true)
     public Page<ProductDTO> findAll(Pageable pageable){
-        return repository.findAll(pageable).map(p -> ProductDTO.builder()
-                .id(p.getId())
-                .name(p.getName())
-                .description(p.getDescription())
-                .price(p.getPrice())
-                .imgUrl(p.getImgUrl())
-                .build());
+        return repository.findAll(pageable).map(ProductDTO::new);
+    }
+
+    @Transactional
+    public ProductDTO insert(ProductDTO dto){
+        Product entity = Product.builder()
+                .name(dto.getName())
+                .description(dto.getDescription())
+                .price(dto.getPrice())
+                .imgUrl(dto.getImgUrl())
+                .build();
+
+        entity = repository.save(entity);
+
+        return new ProductDTO(entity);
     }
 }
