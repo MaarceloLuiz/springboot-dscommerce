@@ -3,11 +3,15 @@ package com.marceloluiz.DSCommerce.services;
 import com.marceloluiz.DSCommerce.dto.ProductDTO;
 import com.marceloluiz.DSCommerce.entities.Product;
 import com.marceloluiz.DSCommerce.repositories.ProductRepository;
+import com.marceloluiz.DSCommerce.services.exceptions.DatabaseException;
 import com.marceloluiz.DSCommerce.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.file.ReadOnlyFileSystemException;
@@ -39,15 +43,25 @@ public class ProductService {
 
     @Transactional
     public ProductDTO update(Long id, ProductDTO dto){
-        Product entity = repository.getReferenceById(id);
-        copyDtoFromEntity(entity, dto);
-        entity = repository.save(entity);
-        return new ProductDTO(entity);
+        try {
+            Product entity = repository.getReferenceById(id);
+            copyDtoFromEntity(entity, dto);
+            entity = repository.save(entity);
+            return new ProductDTO(entity);
+        }catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException("Resource not found.");
+        }
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id){
-        repository.deleteById(id);
+        if(!repository.existsById(id)) throw new ResourceNotFoundException("Resource not found.");
+
+        try{
+            repository.deleteById(id);
+        }catch(DataIntegrityViolationException e){
+            throw new DatabaseException("Referential integrity failure");
+        }
     }
 
     private void copyDtoFromEntity(Product entity, ProductDTO dto) {
