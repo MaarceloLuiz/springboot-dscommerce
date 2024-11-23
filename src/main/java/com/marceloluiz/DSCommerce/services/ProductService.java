@@ -27,15 +27,29 @@ public class ProductService {
 
     @Transactional
     public ProductDTO insert(ProductDTO dto){
-        Product entity = Product.builder()
-                .name(dto.getName())
-                .description(dto.getDescription())
-                .price(dto.getPrice())
-                .imgUrl(dto.getImgUrl())
-                .build();
-
+        Product entity = new Product();
+        copyDtoFromEntity(entity, dto);
         entity = repository.save(entity);
-
         return new ProductDTO(entity);
+    }
+
+    @Transactional
+    public ProductDTO update(Long id, ProductDTO dto){
+        Product entity = repository.getReferenceById(id);
+        copyDtoFromEntity(entity, dto);
+        entity = repository.save(entity);
+        return new ProductDTO(entity);
+    }
+
+    @Transactional
+    public void delete(Long id){
+        repository.deleteById(id);
+    }
+
+    private void copyDtoFromEntity(Product entity, ProductDTO dto) {
+        entity.setName(dto.getName() != null ? dto.getName() : entity.getName());
+        entity.setDescription(dto.getDescription() != null ? dto.getDescription() : entity.getDescription());
+        entity.setPrice(dto.getPrice() != null ? dto.getPrice() : entity.getPrice());
+        entity.setImgUrl(dto.getImgUrl() != null ? dto.getImgUrl() : entity.getImgUrl());
     }
 }
