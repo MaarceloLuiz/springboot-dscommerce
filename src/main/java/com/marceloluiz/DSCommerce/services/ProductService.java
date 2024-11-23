@@ -3,11 +3,14 @@ package com.marceloluiz.DSCommerce.services;
 import com.marceloluiz.DSCommerce.dto.ProductDTO;
 import com.marceloluiz.DSCommerce.entities.Product;
 import com.marceloluiz.DSCommerce.repositories.ProductRepository;
+import com.marceloluiz.DSCommerce.services.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.nio.file.ReadOnlyFileSystemException;
 
 @Service
 @RequiredArgsConstructor
@@ -16,7 +19,8 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public ProductDTO findById(Long id){
-        Product product = repository.findById(id).get();
+        Product product = repository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Resource Not Found"));
         return new ProductDTO(product);
     }
 
