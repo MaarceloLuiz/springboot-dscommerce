@@ -17,7 +17,7 @@ import java.net.URI;
 public class OrderController {
     private final OrderService service;
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<OrderDTO> findById(@PathVariable Long id){ //PathVariable matches the value inserted on GetMapping
         OrderDTO dto = service.findById(id);

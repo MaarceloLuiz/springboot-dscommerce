@@ -3,6 +3,7 @@ package com.marceloluiz.DSCommerce.controllers.handlers;
 import com.marceloluiz.DSCommerce.dto.CustomError;
 import com.marceloluiz.DSCommerce.dto.ValidationError;
 import com.marceloluiz.DSCommerce.services.exceptions.DatabaseException;
+import com.marceloluiz.DSCommerce.services.exceptions.ForbiddenException;
 import com.marceloluiz.DSCommerce.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -56,6 +57,19 @@ public class ControllerExceptionHandler {
         for(FieldError field : e.getBindingResult().getFieldErrors()){
             error.addError(field.getField(), field.getDefaultMessage());
         }
+
+        return ResponseEntity.status(status).body(error);
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<CustomError> forbidden(ForbiddenException e, HttpServletRequest request){
+        HttpStatus status = HttpStatus.FORBIDDEN;
+        CustomError error = CustomError.builder()
+                .timestamp(Instant.now())
+                .status(status.value())
+                .error(e.getMessage())
+                .path(request.getRequestURI())
+                .build();
 
         return ResponseEntity.status(status).body(error);
     }
