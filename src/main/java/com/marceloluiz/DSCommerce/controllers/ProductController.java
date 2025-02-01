@@ -1,6 +1,7 @@
 package com.marceloluiz.DSCommerce.controllers;
 
 import com.marceloluiz.DSCommerce.dto.ProductDTO;
+import com.marceloluiz.DSCommerce.dto.ProductMinDTO;
 import com.marceloluiz.DSCommerce.services.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +27,9 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> findAll(@RequestParam(name = "name", defaultValue = "") String name,
-                                                    Pageable pageable){
-        Page<ProductDTO> dto = service.findAll(name, pageable);
+    public ResponseEntity<Page<ProductMinDTO>> findAll(@RequestParam(name = "name", defaultValue = "") String name,
+                                                       Pageable pageable){
+        Page<ProductMinDTO> dto = service.findAll(name, pageable);
         return ResponseEntity.ok(dto);
     }
 
