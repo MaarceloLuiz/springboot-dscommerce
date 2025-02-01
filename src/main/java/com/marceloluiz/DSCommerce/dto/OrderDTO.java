@@ -3,6 +3,7 @@ package com.marceloluiz.DSCommerce.dto;
 import com.marceloluiz.DSCommerce.entities.Order;
 import com.marceloluiz.DSCommerce.entities.OrderItem;
 import com.marceloluiz.DSCommerce.entities.OrderStatus;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +20,7 @@ public class OrderDTO {
 
     private UserMinDTO client;
     private PaymentDTO payment;
+    @NotEmpty(message = "Must have at least one item")
     private List<OrderItemDTO> items = new ArrayList<>();
 
     public OrderDTO(Order order) {

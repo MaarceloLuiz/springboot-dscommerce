@@ -3,12 +3,11 @@ package com.marceloluiz.DSCommerce.entities;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor // Required by Hibernate
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_order_item")
 public class OrderItem {
