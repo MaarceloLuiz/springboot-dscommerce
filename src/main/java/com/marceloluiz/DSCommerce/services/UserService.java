@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
@@ -20,12 +22,12 @@ public class UserService implements UserDetailsService {
         List<UserDetailsProjection> users = userRepository.searchUserAndRolesByEmail(username);
         if (users.isEmpty()) throw new UsernameNotFoundException("User not found");
 
-        User user = User.builder()
-                .email(username)
-                .password(users.getFirst().getPassword())
-                .build();
-        users.forEach(projection -> user.addRole(new Role(projection.getRoleId(), projection.getAuthority())));
-
+        User user = new User();
+        user.setEmail(username);
+        user.setPassword(users.getFirst().getPassword());
+        users.forEach(projection ->
+                user.addRole(new Role(projection.getRoleId(), projection.getAuthority()))
+        );
         return user;
     }
 }
