@@ -1,10 +1,7 @@
 package com.marceloluiz.DSCommerce.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.Instant;
@@ -15,7 +12,8 @@ import java.util.Set;
 @NoArgsConstructor // Required by Hibernate
 @AllArgsConstructor // Required by @Builder
 @Builder
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_order")
 public class Order {

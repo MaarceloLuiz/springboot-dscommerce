@@ -1,7 +1,9 @@
 package com.marceloluiz.DSCommerce.services;
 
+import com.marceloluiz.DSCommerce.dto.CategoryDTO;
 import com.marceloluiz.DSCommerce.dto.ProductDTO;
 import com.marceloluiz.DSCommerce.dto.ProductMinDTO;
+import com.marceloluiz.DSCommerce.entities.Category;
 import com.marceloluiz.DSCommerce.entities.Product;
 import com.marceloluiz.DSCommerce.repositories.ProductRepository;
 import com.marceloluiz.DSCommerce.services.exceptions.DatabaseException;
@@ -68,5 +70,13 @@ public class ProductService {
         entity.setDescription(dto.getDescription() != null ? dto.getDescription() : entity.getDescription());
         entity.setPrice(dto.getPrice() != null ? dto.getPrice() : entity.getPrice());
         entity.setImgUrl(dto.getImgUrl() != null ? dto.getImgUrl() : entity.getImgUrl());
+
+        entity.getCategories().clear();
+        for(CategoryDTO categoryDto : dto.getCategories()){
+            Category category = new Category();
+            category.setId(categoryDto.getId());
+
+            entity.getCategories().add(category);
+        }
     }
 }

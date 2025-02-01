@@ -1,10 +1,7 @@
 package com.marceloluiz.DSCommerce.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,7 +11,8 @@ import java.util.*;
 @NoArgsConstructor // Required by Hibernate
 @AllArgsConstructor // Required by @Builder
 @Builder
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_user")
 public class User implements UserDetails {
