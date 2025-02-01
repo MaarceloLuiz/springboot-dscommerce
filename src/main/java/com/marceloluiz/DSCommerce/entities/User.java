@@ -66,4 +66,8 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public void addRole(Role role){
+        roles.add(role);
+    }
 }
