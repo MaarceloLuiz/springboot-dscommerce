@@ -25,6 +25,7 @@ public class ProductDTO {
     @NotBlank(message = "Field is required")
     private String description;
 
+    @jakarta.validation.constraints.NotNull(message = "Field is required")
     @Positive(message = "The price must be positive")
     private Double price;
     private String imgUrl;
