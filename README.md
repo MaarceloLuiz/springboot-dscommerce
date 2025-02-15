@@ -1,4 +1,5 @@
 # Full Stack E-Commerce Application
+[![NPM](https://img.shields.io/npm/l/react)](https://github.com/MaarceloLuiz/springboot-dscommerce/blob/main/LICENSE) 
 
 ## Objective
 This full-stack E-Commerce application features a robust backend built with Spring Boot (Java, Maven), utilizing JWT (JSON Web Tokens) for secure authentication and authorization.
