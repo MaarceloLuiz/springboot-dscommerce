@@ -81,7 +81,7 @@ If any command fails, install the missing dependency before proceeding.
 #### 1. Clone the repository:
 ```bash
 git clone https://github.com/MaarceloLuiz/springboot-dscommerce.git
-cd DSCommerce
+cd springboot-dscommerce
 ```
 - Choose a method to start the application
   - You can run the app in two ways:
