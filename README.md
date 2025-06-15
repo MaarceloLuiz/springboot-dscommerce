@@ -64,6 +64,35 @@ This full-stack E-Commerce application features a robust backend built with Spri
 - **Yarn**: Frontend package management
 
 ## How to Run
+## First Option (Recommended):
+### Dockerfile
+### Steps
+#### 1. Clone the repository:
+```bash
+git clone https://github.com/MaarceloLuiz/springboot-dscommerce.git
+cd DSCommerce
+```
+- Choose a method to start the application
+  - You can run the app in two ways:
+    - Simply using Docker-Compose
+    - Using detached Docker-Compose
+
+#### 2. Option 1: Using Docker-Compose:
+- `docker-compose up`
+
+#### 3. To stop
+- CTRL + C
+
+#### 2. Option 2: Detached Docker-Compose:
+- `docker-compose up -d`
+
+#### 3. To stop
+- `docker-compose down`
+
+---
+
+## Second Option:
+### Command Line:
 ### Prerequisites
 - Java 17 or higher
 - Maven
@@ -94,17 +123,17 @@ chmod +x run.sh
 ./run.sh
 ```
 
-#### 3. Option 2: Using a Single Command
+#### 2. Option 2: Using a Single Command
 ```bash
 (cd backend && mvn clean install && mvn spring-boot:run) & (cd frontend && yarn install && yarn dev)
 ```
 
-#### 4. Accessing the Application
+#### 3. Accessing the Application
 ```bash
 http://localhost:5173
 ```
 
-#### 5. Open Postman (or any API testing tool) and use the following base URL to access the API endpoints
+#### 4. Open Postman (or any API testing tool) and use the following base URL to access the API endpoints
 
 - Base URL:
 ```bash
@@ -135,7 +164,7 @@ http://localhost:8080
 http://localhost:8080/products
 ```
 
-#### 6. To stop the application, simply press the following in the terminal:
+#### 5. To stop the application, simply press the following in the terminal:
 ```bash
 Ctrl + C
 ```
