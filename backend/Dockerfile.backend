@@ -1,0 +1,10 @@
+FROM maven:3.9.6-eclipse-temurin-21
+
+WORKDIR /app/backend
+
+COPY pom.xml .
+COPY src ./src
+
+RUN mvn clean install -DskipTests
+
+CMD ["mvn", "spring-boot:run"]
